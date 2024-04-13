@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fastapi-ddd-chat"
+version = "0.1.0"
+description = ""
+authors = ["RustamShaykhinurov <89419894+ShaykhinurovRustam@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.110.1"
+uvicorn = {extras = ["all"], version = "^0.29.0"}
+motor = "^3.4.0"
+pytest = "^8.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
