@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from logic.exceptions.base import LogicException
 
 
-@dataclass(frozen=True, eq=False)
+@dataclass(eq=False)
 class EventHandlersNotRegisteredException(LogicException):
     event_type: type
     
@@ -11,7 +11,7 @@ class EventHandlersNotRegisteredException(LogicException):
     def message(self):
         return f"Handlers for {self.event_type} not found"
     
-@dataclass(frozen=True, eq=False)
+@dataclass(eq=False)
 class CommandHandlersNotRegisteredException(LogicException):
     command_type: type
     

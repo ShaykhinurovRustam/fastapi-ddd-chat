@@ -18,29 +18,29 @@ class Mediator:
         kw_only=True
     )
     
-    def register_event(self, event: ET, event_handler: EventHandler[ET, ER]):
-        self.events_map[event.__class__].append(event_handler)
+    def register_event(self, event: ET, event_handlers: Iterable[EventHandler[ET, ER]]):
+        self.events_map[event].extend(event_handlers)
         
-    def register_command(self, command: CT, command_handler: CommandHandler[CT, CR]):
-        self.commands_map[command.__class__].append(command_handler)
+    def register_command(self, command: CT, command_handlers: Iterable[CommandHandler[CT, CR]]):
+        self.commands_map[command].extend(command_handlers)
     
-    def handle_event(self, event: BaseEvent) -> Iterable[ER]:
+    async def handle_event(self, event: BaseEvent) -> Iterable[ER]:
         event_type = event.__class__
         handlers = self.events_map.get(event_type)
         
         if not handlers:
             raise EventHandlersNotRegisteredException(event_type)
         
-        return [handler.handle(event) for handler in handlers]
+        return [await handler.handle(event) for handler in handlers]
     
-    def handle_commands(self, command: BaseCommand) -> Iterable[CR]:
+    async def handle_command(self, command: BaseCommand) -> Iterable[CR]:
         command_type = command.__class__
-        handlers = self.events_map.get(command_type)
+        handlers = self.commands_map.get(command_type)
         
         if not handlers:
             raise CommandHandlersNotRegisteredException(command_type)
         
-        return [handler.handle(command) for handler in handlers]
+        return [await handler.handle(command) for handler in handlers]
       
         
         
