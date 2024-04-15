@@ -24,7 +24,7 @@ class MemoryChatRepository(BaseChatRepository):
     async def check_chat_exists_by_title(self, title: str) -> bool:
         try:
             return bool(next(
-                chat for chat in self._chats if chat.title == title
+                chat for chat in self._chats if chat.title.as_generic_type() == title
             ))
         except StopIteration:
             return False
